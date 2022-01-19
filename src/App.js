@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react';
+import { v4 as uuid } from 'uuid';
 
 function App() {
 
@@ -8,10 +9,9 @@ function App() {
   const [todo, setTodo] = useState('');
 
   function addTodo() {
-    setTodos([...todos, todo]);
+    setTodos([...todos, {todo, id: uuid()}]);
     setTodo('');
   }
-
   return (
     <div className="App">
       <header className="App-header">
@@ -25,11 +25,11 @@ function App() {
           <button className="btn" onClick={addTodo}>Add</button>
 
           <ul>
-            {todos.map((todo, index) => (
-              <li key={index}>
+            {todos.map((todo) => (
+              <li key={todo.id}>
                 <label>
                   <input type="checkbox" />
-                  {todo}
+                  {todo.todo}
                 </label>
               </li>
             ))}
